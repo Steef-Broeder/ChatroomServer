@@ -1,17 +1,10 @@
-# set base image (host OS)
-FROM python:3.10.8
-
-# set the working directory in the container
-WORKDIR /code
-
-# copy the dependencies file to the working directory
-COPY requirements.txt .
-
-# install dependencies
-RUN pip install -r requirements.txt
-
-# copy the content of the local src directory to the working directory
-COPY src/ .
-
-# command to run on container start
-CMD [ "python", "./server.py" ]
+# Get the latest base image for python
+FROM python:latest
+# Put files at the image '/server/' folder.
+ADD src/server.py /server/
+# '/server/' is base directory
+WORKDIR /server/
+# Expose port 9898 in the container
+EXPOSE 9898
+# execute the command
+CMD [ "python3", "/server/server.py" ]
